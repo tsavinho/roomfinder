@@ -15,17 +15,20 @@ struct ContentView: View {
     let hallways = [
         
         ///Vertical hallways
-        Hallway(start: CGPoint(x:0.337,y:0.585), end: CGPoint(x:0.337, y:1.038)), //5.1 left
-        Hallway(start: CGPoint(x:0.492,y:0.585), end: CGPoint(x:0.492, y:1.038)), //5.1 right
-        Hallway(start: CGPoint(x:0.423,y:0.585), end: CGPoint(x:0.423, y:0.099)), //Passarelle
-        Hallway(start: CGPoint(x:0.423,y:0.099), end: CGPoint(x:0.423, y:-0.18)), //6.1 left
-        Hallway(start: CGPoint(x:0.655,y:-0.18), end: CGPoint(x:0.655, y:0.099)), //6.1 right
-        ///Horizontal hallwa
-        Hallway(start: CGPoint(x:0.337, y:1.038), end: CGPoint(x:0.492, y:1.038)), //5.1 bottom
-        Hallway(start: CGPoint(x:0.337, y:0.585), end: CGPoint(x:0.423, y:0.585)), //5.1 top left
-        Hallway(start: CGPoint(x:0.423, y:0.585), end: CGPoint(x:0.492, y:0.585)), //5.1 top right
-        Hallway(start: CGPoint(x:0.423, y:0.099), end: CGPoint(x:0.655, y:0.099)), //6.1 bottom
-        Hallway(start: CGPoint(x:0.423, y:-0.18), end: CGPoint(x:0.655, y:-0.18)) //6.1 top
+        Hallway(start: CGPoint(x:0.337,y:0.585), end: CGPoint(x:0.337, y:1.038), name:"5.1 Links"), //5.1 left
+        Hallway(start: CGPoint(x:0.492,y:0.585), end: CGPoint(x:0.492, y:1.038), name:"5.1 Rechts"), //5.1 right
+        Hallway(start: CGPoint(x:0.423,y:0.585), end: CGPoint(x:0.423, y:0.099), name:"Passarelle"), //Passarelle
+        Hallway(start: CGPoint(x:0.423,y:0.099), end: CGPoint(x:0.423, y:-0.18), name:"6.1 links"), //6.1 left
+        Hallway(start: CGPoint(x:0.655,y:-0.18), end: CGPoint(x:0.655, y:0.099), name:"6.1 rechts"), //6.1 right
+        Hallway(start: CGPoint(x:0.681,y:-0.18), end: CGPoint(x:0.681, y:0.099), name:"6.1 connector rechts"), //6.1 bottom connector
+        
+        ///Horizontal hallways
+        Hallway(start: CGPoint(x:0.337, y:1.038), end: CGPoint(x:0.492, y:1.038), name:"5.1 unten"), //5.1 bottom
+        Hallway(start: CGPoint(x:0.337, y:0.585), end: CGPoint(x:0.423, y:0.585), name:"5.1 oben links"), //5.1 top left
+        Hallway(start: CGPoint(x:0.423, y:0.585), end: CGPoint(x:0.492, y:0.585), name:"5.1 oben rechts"), //5.1 top right
+        Hallway(start: CGPoint(x:0.423, y:0.099), end: CGPoint(x:0.655, y:0.099), name:"6.1 unten"), //6.1 bottom
+        Hallway(start: CGPoint(x:0.423, y:-0.18), end: CGPoint(x:0.655, y:-0.18), name:"6.1 oben"), //6.1 top
+        Hallway(start: CGPoint(x:0.655, y:-0.18), end: CGPoint(x:0.681, y:-0.18), name:"6.1 connector unten") //6.1 bottom connector
     ]
     
     let rooms = [
@@ -33,19 +36,22 @@ struct ContentView: View {
         Room(name: "5.1H14", entrancePoint:  CGPoint(x: 0.337, y:0.85)),
         Room(name: "5.1H16", entrancePoint:  CGPoint(x: 0.337, y:0.765)),
         Room(name: "5.1H19", entrancePoint:  CGPoint(x: 0.337, y:0.68)),
-        Room(name: "5.1D02", entrancePoint:  CGPoint(x: 0.337, y:0.585)),
+        Room(name: "5.1D02", entrancePoint:  CGPoint(x: 0.338, y:0.585)),
+        
         Room(name: "5.1H03", entrancePoint:  CGPoint(x: 0.402, y:1.038)),
         Room(name: "5.1H01", entrancePoint:  CGPoint(x: 0.445, y:1.038)),
         Room(name: "5.1A17", entrancePoint:  CGPoint(x: 0.492, y:0.935)),
         Room(name: "5.1D11", entrancePoint:  CGPoint(x: 0.423, y:0.52)),
         Room(name: "6.1H01", entrancePoint:  CGPoint(x: 0.472, y:-0.18)),
+        
         Room(name: "6.1H03", entrancePoint:  CGPoint(x: 0.5155, y:-0.18)),
         Room(name: "6.1H05", entrancePoint:  CGPoint(x: 0.559, y:-0.18)),
         Room(name: "6.1H07", entrancePoint:  CGPoint(x: 0.6025, y:-0.18)),
         Room(name: "6.1H13", entrancePoint:  CGPoint(x: 0.655, y:-0.07)),
         Room(name: "6.1H15", entrancePoint:  CGPoint(x: 0.655, y:0.015)),
+        
         Room(name: "6.1A03", entrancePoint:  CGPoint(x: 0.655, y:-0.01)),
-        Room(name: "6.1A06", entrancePoint:  CGPoint(x: 0.681, y:0.099))
+        Room(name: "6.1A06", entrancePoint:  CGPoint(x: 0.681, y:0.098))
     ]
     
     /*@State var resultDistance = CGFloat(0)
@@ -56,9 +62,12 @@ struct ContentView: View {
     @State var endingRoomObject = Room(name: "No room", entrancePoint:  CGPoint(x: 0, y:0))
     
     let pathFinder: PathFinder
+    let graph: [Node]
+    @State var shortestPath: [Node] = []
     
     init() {
-        pathFinder = PathFinder(hallways: hallways, rooms: rooms)
+        pathFinder = PathFinder()
+        graph = pathFinder.constructGraph(hallways: hallways, rooms: rooms)
     }
     
     var body: some View {
@@ -82,24 +91,27 @@ struct ContentView: View {
                                     y:geometry.size.height * item.entrancePoint.y
                                 )
                         }
-                        ForEach(hallways, id: \.self){hallway in
-                            Path {path in
-                                path.move(to: CGPoint(x:hallway.start.x * geometry.size.width, y:hallway.start.y * geometry.size.height))
-                                path.addLine(to: CGPoint(x:hallway.end.x * geometry.size.width, y:hallway.end.y * geometry.size.height))
+                        /*ForEach(hallways, id: \.self){hallway in
+                         Path {path in
+                         path.move(to: CGPoint(x:hallway.start.x * geometry.size.width, y:hallway.start.y * geometry.size.height))
+                         path.addLine(to: CGPoint(x:hallway.end.x * geometry.size.width, y:hallway.end.y * geometry.size.height))
+                         }
+                         .stroke(.blue, lineWidth:1)
+                         }*/
+                        Path { path in
+                            if shortestPath.isEmpty == false {
+                                let firstPoint = shortestPath.first!
+                                path.move(to: CGPoint(x:firstPoint.point.x*geometry.size.width, y:firstPoint.point.y*geometry.size.height))
+                                for node in shortestPath {
+                                    if (node != firstPoint){
+                                        path.addLine(to: CGPoint(x:node.point.x*geometry.size.width,y:node.point.y*geometry.size.height))
+                                    }
+                                }
                             }
-                            .stroke(.blue, lineWidth:4)
                         }
-                        /*Path { path in
-                         if mapPathVertices.isEmpty == false {
-                         path.move(to: mapPathVertices.first!.point)
-                         for vertex in mapPathVertices {
-                         path.addLine(to: vertex.point)
-                         }
-                         }
-                         }
-                         .trim(from: 0, to: mapPathDrawnPercentage) /// animate path drawing
-                         .stroke(Color.blue, style: StrokeStyle(lineWidth: 6, lineCap: .round))
-                         .shadow(color: Color.black.opacity(0.3), radius: 3)*/
+                        //.trim(from: 0, to: mapPathDrawnPercentage) /// animate path drawing
+                        .stroke(Color.blue, style: StrokeStyle(lineWidth: 6, lineCap: .round))
+                        .shadow(color: Color.black.opacity(0.3), radius: 3)
                         
                     },
                     alignment: .topLeading
@@ -125,15 +137,15 @@ struct ContentView: View {
                             if (filteredRooms.count == 1){
                                 startingRoomObject = filteredRooms[0]
                                 if (endingRoomObject.name != "No room"){
-                                    let shortestPath =  pathFinder.findShortestPath(from: startingRoomObject.entrancePoint, to: endingRoomObject.entrancePoint)
-                                    if (shortestPath.count>0)
+                                    let start = graph.first(where: {$0.point == startingRoomObject.entrancePoint})!
+                                    let end = graph.first(where: {$0.point == endingRoomObject.entrancePoint})!
+                                    let shortestPathFound =  pathFinder.dijkstra(nodes: graph, start: start, goal: end)
+                                    if (shortestPathFound.count>0)
                                     {
-                                        print("Shortest path from start to end:", shortestPath)
-                                        print("Starting room:", startingRoomObject.entrancePoint)
-                                        print("Ending room:",
-                                              endingRoomObject.entrancePoint)
+                                        shortestPath = shortestPathFound
                                     } else {
                                         print("No path found from start to end")
+                                        shortestPath = []
                                     }
                                     /*
                                      if let route = shortestRouteBetween(start: startingRoomObject, destination: endingRoomObject, hallways: hallways) {
@@ -184,16 +196,15 @@ struct ContentView: View {
                             if (filteredRooms.count == 1){
                                 endingRoomObject = filteredRooms[0]
                                 if (startingRoomObject.name != "No room"){
-                                    
-                                    let shortestPath =  pathFinder.findShortestPath(from: startingRoomObject.entrancePoint, to: endingRoomObject.entrancePoint)
-                                    if (shortestPath.count>0)
+                                    let start = graph.first(where: {$0.point == startingRoomObject.entrancePoint})!
+                                    let end = graph.first(where: {$0.point == endingRoomObject.entrancePoint})!
+                                    let shortestPathFound =  pathFinder.dijkstra(nodes: graph, start: start, goal: end)
+                                    if (shortestPathFound.count>0)
                                     {
-                                        print("Shortest path from start to end:", shortestPath)
-                                        print("Starting room:", startingRoomObject.entrancePoint)
-                                        print("Ending room:",
-                                              endingRoomObject.entrancePoint)
+                                        shortestPath = shortestPathFound
                                     } else {
                                         print("No path found from start to end")
+                                        shortestPath = []
                                     }
                                     
                                     /*if let route = shortestRouteBetween(start: startingRoomObject, destination: endingRoomObject, hallways: hallways) {

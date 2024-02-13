@@ -7,100 +7,64 @@
 
 import Foundation
 
-struct PriorityQueue<Element: Comparable>: Queue {
-    private var heap: Heap<Element>
+struct PriorityQueue<Element> {
+    private var elements: [Element] = []
+    private let sorter: (Element, Element) -> Bool
 
     init(sort: @escaping (Element, Element) -> Bool) {
-        heap = Heap(sort: sort)
+        self.sorter = sort
     }
 
     var isEmpty: Bool {
-        heap.isEmpty
-    }
-
-    var peek: Element? {
-        heap.peek()
+        return elements.isEmpty
     }
 
     mutating func enqueue(_ element: Element) {
-        heap.insert(element)
+        elements.append(element)
+        upHeapify(elements.count - 1)
     }
 
     mutating func dequeue() -> Element? {
-        heap.remove()
-    }
-}
-
-protocol Queue {
-    associatedtype Element
-    mutating func enqueue(_ element: Element)
-    mutating func dequeue() -> Element?
-    var isEmpty: Bool { get }
-    var peek: Element? { get }
-}
-
-struct Heap<Element: Comparable> {
-    private var elements: [Element] = []
-    private let sort: (Element, Element) -> Bool
-
-    var isEmpty: Bool {
-        elements.isEmpty
-    }
-
-    init(sort: @escaping (Element, Element) -> Bool) {
-        self.sort = sort
-    }
-
-    func peek() -> Element? {
-        elements.first
-    }
-
-    mutating func insert(_ element: Element) {
-        elements.append(element)
-        siftUp()
-    }
-
-    mutating func remove() -> Element? {
-        guard !isEmpty else {
-            return nil
-        }
+        guard !elements.isEmpty else { return nil }
         elements.swapAt(0, elements.count - 1)
-        defer {
-            siftDown()
-        }
-        return elements.removeLast()
+        let dequeued = elements.removeLast()
+        downHeapify(0)
+        return dequeued
     }
 
-    private mutating func siftUp() {
-        var child = elements.count - 1
-        while child > 0 {
-            let parent = (child - 1) / 2
-            if sort(elements[child], elements[parent]) {
-                elements.swapAt(child, parent)
-                child = parent
-            } else {
-                return
-            }
+    private func parentIndex(of index: Int) -> Int {
+        return (index - 1) / 2
+    }
+
+    private func leftChildIndex(of index: Int) -> Int {
+        return 2 * index + 1
+    }
+
+    private func rightChildIndex(of index: Int) -> Int {
+        return 2 * index + 2
+    }
+
+    private mutating func upHeapify(_ index: Int) {
+        let parent = parentIndex(of: index)
+        if index > 0 && sorter(elements[index], elements[parent]) {
+            elements.swapAt(index, parent)
+            upHeapify(parent)
         }
     }
 
-    private mutating func siftDown() {
-        var parent = 0
-        while true {
-            let left = 2 * parent + 1
-            let right = left + 1
-            var candidate = parent
-            if left < elements.count && sort(elements[left], elements[candidate]) {
-                candidate = left
-            }
-            if right < elements.count && sort(elements[right], elements[candidate]) {
-                candidate = right
-            }
-            if candidate == parent {
-                return
-            }
-            elements.swapAt(parent, candidate)
-            parent = candidate
+    private mutating func downHeapify(_ index: Int) {
+        let left = leftChildIndex(of: index)
+        let right = rightChildIndex(of: index)
+        var highest = index
+        if left < elements.count && sorter(elements[left], elements[highest]) {
+            highest = left
+        }
+        if right < elements.count && sorter(elements[right], elements[highest]) {
+            highest = right
+        }
+        if highest != index {
+            elements.swapAt(index, highest)
+            downHeapify(highest)
         }
     }
 }

@@ -13,4 +13,7 @@ struct Room: Identifiable, Hashable{
     let id = UUID()
     init(name: String, entrancePoint: CGPoint){self.name = name; self.entrancePoint = entrancePoint}
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
+    static func ==(lhs: Room, rhs: Room) -> Bool {
+        return lhs.entrancePoint == rhs.entrancePoint
+        }
 }
