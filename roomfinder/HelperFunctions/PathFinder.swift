@@ -1,5 +1,5 @@
 //
-//  GPTFunctions.swift
+//  PathFinder.swift
 //  roomfinder
 //
 //  Created by Pascal Köchli on 12.02.2024.
@@ -8,92 +8,7 @@
 import Foundation
 import CoreGraphics
 
-struct Graph {
-    let rooms: [Room]
-    let hallways: [Hallway]
-}
-
-extension CGPoint {
-    func isOnLine(start: CGPoint, end: CGPoint) -> Bool {
-        let dxc = self.x - start.x
-        let dyc = self.y - start.y
-        let dxl = end.x - start.x
-        let dyl = end.y - start.y
-        let cross = dxc * dyl - dyc * dxl
-        return cross == 0
-    }
-    
-    func isClosest(to point1: CGPoint, and point2: CGPoint) -> CGPoint {
-        let d1 = point2.distance(to: self)
-        let d2 = point2.distance(to: point1)
-        return d1 < d2 ? point2 : point1
-    }
-    
-    func distance(to point: CGPoint) -> CGFloat {
-        return sqrt(pow(self.x - point.x, 2) + pow(self.y - point.y, 2))
-    }
-}
-
-extension CGPoint : Hashable {
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(x)
-        hasher.combine(y)
-    }
-}
-
-extension CGPoint: Comparable {
-    public static func < (lhs: CGPoint, rhs: CGPoint) -> Bool {
-        if lhs.x != rhs.x {
-            return lhs.x < rhs.x
-        } else {
-            return lhs.y < rhs.y
-        }
-    }
-}
-
-class Node: Hashable{
-    var point: CGPoint
-    var edges: [Edge] = []
-    var name: String
-    
-    init(point: CGPoint, name:String) {
-        self.point = point;
-        self.name = name;
-    }
-    
-    static func == (lhs: Node, rhs: Node) -> Bool {
-        return lhs.point == rhs.point
-    }
-    
-    public static func < (lhs: Node, rhs: Node) -> Bool {
-        if lhs.point.x != rhs.point.x {
-            return lhs.point.x < rhs.point.x
-        } else {
-            return lhs.point.y < rhs.point.y
-        }
-    }
-    
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(point.x)
-        hasher.combine(point.y)
-    }
-}
-
-class Edge {
-    var from: Node
-    var to: Node
-    var weight: CGFloat
-    
-    init(from: Node, to: Node, weight: CGFloat) {
-        self.from = from
-        self.to = to
-        self.weight = weight
-    }
-}
-
-class PathFinder {
-    
+class PathFinder {    
     func constructGraph(hallways: [Hallway], rooms: [Room]) -> [Node] {
         var nodes = [CGPoint: Node]()
         
@@ -108,7 +23,7 @@ class PathFinder {
             nodes[room.entrancePoint] = roomNode // Ensure room nodes are added to the graph
             
             for hallway in hallways {
-                if isPoint(room.entrancePoint, onLineSegmentBetween: hallway.start, and: hallway.end) {
+                if isPointOnLine(room.entrancePoint, startOfLine: hallway.start, endOfLine: hallway.end) {
                     // Connect room to hallway start
                     if let startNode = nodes[hallway.start] {
                         let edgeToStart = Edge(from: roomNode, to: startNode, weight: distance(from: room.entrancePoint, to: hallway.start))
@@ -126,7 +41,25 @@ class PathFinder {
                         let edgeFromEnd = Edge(from: endNode, to: roomNode, weight: edgeToEnd.weight)
                         endNode.edges.append(edgeFromEnd)
                     }
+                    
+                    //Connect room to other rooms on same hallway
+                    for otherRoom in rooms {
+                        if isPointOnLine(otherRoom.entrancePoint, startOfLine: hallway.start, endOfLine: hallway.end){
+                            let otherRoomNode = Node(point: otherRoom.entrancePoint, name: otherRoom.name)
+                            if (nodes.keys.contains(otherRoom.entrancePoint) == false){
+                                nodes[otherRoom.entrancePoint] = otherRoomNode // Ensure room nodes are added to the graph
+                            }
+                            
+                            let edgeToStartRoom = Edge(from: roomNode, to: otherRoomNode, weight: distance(from: roomNode.point, to: otherRoomNode.point))
+                            roomNode.edges.append(edgeToStartRoom)
+                            
+                            let edgeToOtherRoom = Edge(from: otherRoomNode, to: roomNode, weight: edgeToStartRoom.weight)
+                            otherRoomNode.edges.append(edgeToOtherRoom)
+                        }
+                    }
+                    
                 }
+                
             }
         }
         
@@ -160,8 +93,6 @@ class PathFinder {
             
             for edge in currentNode.edges {
                 let distance = distances[currentNode, default: CGFloat.infinity] + edge.weight
-                print(edge.from.name)
-                print(edge.to.name)
                 if distance < distances[edge.to, default: CGFloat.infinity] {
                     distances[edge.to] = distance
                     previous[edge.to] = currentNode
@@ -192,8 +123,8 @@ class PathFinder {
         return path
     }
     
-    func isPoint(_ point: CGPoint, onLineSegmentBetween start: CGPoint, and end: CGPoint) -> Bool {
-        let crossProduct = (point.y - start.y) * (end.x - start.x) - (point.x - start.x) * (end.y - start.y)
+    func isPointOnLine(_ point: CGPoint, startOfLine: CGPoint, endOfLine: CGPoint) -> Bool {
+        let crossProduct = (point.y - startOfLine.y) * (endOfLine.x - startOfLine.x) - (point.x - startOfLine.x) * (endOfLine.y - startOfLine.y)
         
         // Check if point is collinear with start and end
         if abs(crossProduct) > CGFloat.leastNonzeroMagnitude {
@@ -201,12 +132,12 @@ class PathFinder {
         }
         
         // Check if point is within the bounds of the line segment
-        let dotProduct = (point.x - start.x) * (end.x - start.x) + (point.y - start.y) * (end.y - start.y)
+        let dotProduct = (point.x - startOfLine.x) * (endOfLine.x - startOfLine.x) + (point.y - startOfLine.y) * (endOfLine.y - startOfLine.y)
         if dotProduct < 0 {
             return false
         }
         
-        let squaredLength = (end.x - start.x) * (end.x - start.x) + (end.y - start.y) * (end.y - start.y)
+        let squaredLength = (endOfLine.x - startOfLine.x) * (endOfLine.x - startOfLine.x) + (endOfLine.y - startOfLine.y) * (endOfLine.y - startOfLine.y)
         if dotProduct > squaredLength {
             return false
         }

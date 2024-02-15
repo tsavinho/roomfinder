@@ -1,8 +1,8 @@
 //
-//  QueueStuff.swift
+//  PriorityQueue.swift
 //  roomfinder
 //
-//  Created by Pascal Köchli on 12.02.2024.
+//  Created by Pascal Köchli while using Chat-GPT on 12.02.2024.
 //
 
 import Foundation
