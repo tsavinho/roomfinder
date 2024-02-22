@@ -12,10 +12,14 @@ struct FHNWNavigationBar: View {
     var body: some View {
         HStack {
             Spacer()
-            Image("fhnw_logo_w_claim_de")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(height: 50)
+            VStack (spacing:0){
+                Image("fhnw_logo_w_claim_de")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(height: 50)
+                Text("Roomfinder")
+                    .font(.custom("Inter", size: 22.0))
+            }
             Spacer()
         }
         .background(Color("fhnw-yellow"))

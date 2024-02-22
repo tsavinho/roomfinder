@@ -11,18 +11,20 @@
 		D22C0FD92B7A811900211D62 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22C0FD82B7A811900211D62 /* PriorityQueue.swift */; };
 		D22E4B602B6BDE3300262FCB /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E4B5F2B6BDE3300262FCB /* Room.swift */; };
 		D22E4B622B6BE1BC00262FCB /* Hallway.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22E4B612B6BE1BC00262FCB /* Hallway.swift */; };
+		D29493D92B87550D006B123F /* RoomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29493D82B87550D006B123F /* RoomPicker.swift */; };
+		D29493DC2B8780E0006B123F /* Inter-VariableFont_slnt,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D29493DB2B8780CC006B123F /* Inter-VariableFont_slnt,wght.ttf */; };
+		D29493DF2B878E35006B123F /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = D29493DE2B878E35006B123F /* Localizable.xcstrings */; };
+		D29493E22B879833006B123F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D29493E12B879833006B123F /* Launch Screen.storyboard */; };
 		D2A743002B6256B000D6F96F /* roomfinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A742FF2B6256B000D6F96F /* roomfinderApp.swift */; };
 		D2A743022B6256B000D6F96F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A743012B6256B000D6F96F /* ContentView.swift */; };
 		D2A743042B6256B300D6F96F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A743032B6256B300D6F96F /* Assets.xcassets */; };
 		D2A743072B6256B300D6F96F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A743062B6256B300D6F96F /* Preview Assets.xcassets */; };
-		D2A7430E2B62576400D6F96F /* FHNWLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A7430D2B62576400D6F96F /* FHNWLaunchScreen.storyboard */; };
 		D2EDDFEB2B7E4A7700C7DBD4 /* Graph.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EDDFEA2B7E4A7700C7DBD4 /* Graph.swift */; };
 		D2EDDFEE2B7E4AA400C7DBD4 /* CGPointExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EDDFED2B7E4AA400C7DBD4 /* CGPointExtensions.swift */; };
 		D2EDDFF02B7E4AEA00C7DBD4 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EDDFEF2B7E4AEA00C7DBD4 /* Node.swift */; };
 		D2EDDFF22B7E4B0000C7DBD4 /* Edge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EDDFF12B7E4B0000C7DBD4 /* Edge.swift */; };
 		D2EDDFF52B7E637800C7DBD4 /* PulsatingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EDDFF42B7E637800C7DBD4 /* PulsatingCircle.swift */; };
 		D2EDDFF72B7E659900C7DBD4 /* FHNWNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EDDFF62B7E659900C7DBD4 /* FHNWNavigationBar.swift */; };
-		D2EDDFF92B7E701600C7DBD4 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2EDDFF82B7E701600C7DBD4 /* SearchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,19 +32,22 @@
 		D22C0FD82B7A811900211D62 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		D22E4B5F2B6BDE3300262FCB /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
 		D22E4B612B6BE1BC00262FCB /* Hallway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hallway.swift; sourceTree = "<group>"; };
+		D29493D82B87550D006B123F /* RoomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomPicker.swift; sourceTree = "<group>"; };
+		D29493DB2B8780CC006B123F /* Inter-VariableFont_slnt,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter-VariableFont_slnt,wght.ttf"; sourceTree = "<group>"; };
+		D29493DD2B87813C006B123F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D29493DE2B878E35006B123F /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		D29493E12B879833006B123F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		D2A742FC2B6256B000D6F96F /* roomfinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = roomfinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A742FF2B6256B000D6F96F /* roomfinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = roomfinderApp.swift; sourceTree = "<group>"; };
 		D2A743012B6256B000D6F96F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D2A743032B6256B300D6F96F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2A743062B6256B300D6F96F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D2A7430D2B62576400D6F96F /* FHNWLaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FHNWLaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2EDDFEA2B7E4A7700C7DBD4 /* Graph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graph.swift; sourceTree = "<group>"; };
 		D2EDDFED2B7E4AA400C7DBD4 /* CGPointExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPointExtensions.swift; sourceTree = "<group>"; };
 		D2EDDFEF2B7E4AEA00C7DBD4 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		D2EDDFF12B7E4B0000C7DBD4 /* Edge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Edge.swift; sourceTree = "<group>"; };
 		D2EDDFF42B7E637800C7DBD4 /* PulsatingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulsatingCircle.swift; sourceTree = "<group>"; };
 		D2EDDFF62B7E659900C7DBD4 /* FHNWNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FHNWNavigationBar.swift; sourceTree = "<group>"; };
-		D2EDDFF82B7E701600C7DBD4 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +82,22 @@
 			path = HelperFunctions;
 			sourceTree = "<group>";
 		};
+		D29493DA2B878089006B123F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D29493DB2B8780CC006B123F /* Inter-VariableFont_slnt,wght.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		D29493E02B878E46006B123F /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				D29493DE2B878E35006B123F /* Localizable.xcstrings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		D2A742F32B6256B000D6F96F = {
 			isa = PBXGroup;
 			children = (
@@ -96,6 +117,10 @@
 		D2A742FE2B6256B000D6F96F /* roomfinder */ = {
 			isa = PBXGroup;
 			children = (
+				D29493E12B879833006B123F /* Launch Screen.storyboard */,
+				D29493E02B878E46006B123F /* Localization */,
+				D29493DD2B87813C006B123F /* Info.plist */,
+				D29493DA2B878089006B123F /* Fonts */,
 				D2EDDFF32B7E636400C7DBD4 /* Views */,
 				D2EDDFEC2B7E4A8C00C7DBD4 /* Extensions */,
 				D22E4B662B6BE24500262FCB /* HelperFunctions */,
@@ -104,7 +129,6 @@
 				D2A743012B6256B000D6F96F /* ContentView.swift */,
 				D2A743032B6256B300D6F96F /* Assets.xcassets */,
 				D2A743052B6256B300D6F96F /* Preview Content */,
-				D2A7430D2B62576400D6F96F /* FHNWLaunchScreen.storyboard */,
 			);
 			path = roomfinder;
 			sourceTree = "<group>";
@@ -130,7 +154,7 @@
 			children = (
 				D2EDDFF42B7E637800C7DBD4 /* PulsatingCircle.swift */,
 				D2EDDFF62B7E659900C7DBD4 /* FHNWNavigationBar.swift */,
-				D2EDDFF82B7E701600C7DBD4 /* SearchBar.swift */,
+				D29493D82B87550D006B123F /* RoomPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -177,6 +201,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = D2A742F32B6256B000D6F96F;
 			productRefGroup = D2A742FD2B6256B000D6F96F /* Products */;
@@ -193,9 +218,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D29493DC2B8780E0006B123F /* Inter-VariableFont_slnt,wght.ttf in Resources */,
 				D2A743072B6256B300D6F96F /* Preview Assets.xcassets in Resources */,
+				D29493DF2B878E35006B123F /* Localizable.xcstrings in Resources */,
+				D29493E22B879833006B123F /* Launch Screen.storyboard in Resources */,
 				D2A743042B6256B300D6F96F /* Assets.xcassets in Resources */,
-				D2A7430E2B62576400D6F96F /* FHNWLaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,8 +233,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2EDDFF92B7E701600C7DBD4 /* SearchBar.swift in Sources */,
 				D22C0FD92B7A811900211D62 /* PriorityQueue.swift in Sources */,
+				D29493D92B87550D006B123F /* RoomPicker.swift in Sources */,
 				D2A743022B6256B000D6F96F /* ContentView.swift in Sources */,
 				D2EDDFEB2B7E4A7700C7DBD4 /* Graph.swift in Sources */,
 				D2EDDFF02B7E4AEA00C7DBD4 /* Node.swift in Sources */,
@@ -355,9 +382,9 @@
 				DEVELOPMENT_TEAM = YZDMFR532J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = roomfinder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -389,9 +416,9 @@
 				DEVELOPMENT_TEAM = YZDMFR532J;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = roomfinder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;

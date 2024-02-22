@@ -10,8 +10,14 @@ import Foundation
 struct Room: Identifiable, Hashable{
     var name: String
     var entrancePoint: CGPoint
+    /// For future implementation
+    var floor: Int
     let id = UUID()
-    init(name: String, entrancePoint: CGPoint){self.name = name; self.entrancePoint = entrancePoint}
+    init(name: String, entrancePoint: CGPoint, floor: Int){
+        self.name = name;
+        self.entrancePoint = entrancePoint;
+        self.floor = floor;
+    }
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
     static func ==(lhs: Room, rhs: Room) -> Bool {
         return lhs.entrancePoint == rhs.entrancePoint

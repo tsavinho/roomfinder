@@ -12,6 +12,7 @@ struct roomfinderApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.font, Font.custom("Inter", size: 14))
         }
     }
 }
