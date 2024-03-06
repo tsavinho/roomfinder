@@ -13,6 +13,7 @@ class PathFinder {
         var nodes = [CGPoint: Node]()
         
         // Create nodes for all unique points (hallway starts/ends and room entrances)
+        // This will create a separate node if a hallway's start is equal to another hallway's end to ensure the pathfinding algorithm works.
         for hallway in hallways {
             nodes[hallway.start] = Node(point: hallway.start, name:hallway.name + " Start")
             nodes[hallway.end] = Node(point: hallway.end, name:hallway.name + " End")
@@ -57,9 +58,7 @@ class PathFinder {
                             otherRoomNode.edges.append(edgeToOtherRoom)
                         }
                     }
-                    
                 }
-                
             }
         }
         
@@ -78,21 +77,25 @@ class PathFinder {
     }
     
     func distance(from: CGPoint, to: CGPoint) -> CGFloat {
+        // Calculate the distance by calculating the hypothenuse
         return hypot(to.x - from.x, to.y - from.y)
     }
     
     func dijkstra(nodes: [Node], start: Node, goal: Node) -> [Node] {
         var distances = [Node: CGFloat]()
         var previous = [Node: Node]()
+        
+        // Initialize a priority queue where nodes are sorted by their shortest known distance from the start node
         var queue = PriorityQueue<Node>(sort: { distances[$0, default: CGFloat.infinity] < distances[$1, default: CGFloat.infinity] })
         
         distances[start] = 0
         queue.enqueue(start)
         
         while let currentNode = queue.dequeue() {
-            
             for edge in currentNode.edges {
                 let distance = distances[currentNode, default: CGFloat.infinity] + edge.weight
+                
+                // If the calculated distance is shorter than the known distance, update the distance and previous node, and enqueue the node.
                 if distance < distances[edge.to, default: CGFloat.infinity] {
                     distances[edge.to] = distance
                     previous[edge.to] = currentNode
@@ -103,12 +106,11 @@ class PathFinder {
             if currentNode == goal {
                 break
             }
-            
         }
-        
         return constructPath(from: previous, start: start, goal: goal)
     }
     
+    // Construct the shortest path from the dijkstra algorithm
     func constructPath(from previous: [Node: Node], start: Node, goal: Node) -> [Node] {
         var path = [Node]()
         var current = goal

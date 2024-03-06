@@ -6,14 +6,5 @@
 	<array>
 		<string>Inter-VariableFont_slnt,wght.ttf</string>
 	</array>
-	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIColorName</key>
-		<string>fhnw-yellow</string>
-		<key>UIImageName</key>
-		<string>fhnw_logo_w_claim_de</string>
-		<key>UIImageRespectsSafeAreaInsets</key>
-		<true/>
-	</dict>
 </dict>
 </plist>

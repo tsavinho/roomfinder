@@ -28,6 +28,7 @@ struct PulsatingCircle: View {
     
     var body: some View {
         ZStack{
+            // Create 4 different sized circles to simulate a pulsating effect
             Circle()
                 .fill(backgroundColor).opacity(0.25)
                 .frame(width: size * 2.5, height: size * 2.5)
@@ -48,8 +49,7 @@ struct PulsatingCircle: View {
                 .frame(width: size, height: size)
                 .position(positionPoint)
             Image(systemName: iconName)
-                .resizable()
-                
+                .font(.system(size: size*0.9, weight: .bold))
                 .frame(width: squareSide, height: squareSide)
                 .position(positionPoint)
                 .foregroundColor(Color.white)
@@ -57,7 +57,7 @@ struct PulsatingCircle: View {
         }
         .onAppear { withAnimation(Animation.easeInOut(duration: 1).repeatForever(autoreverses: true)) {
             self.animate = true
-        }
+            }
         }
     }
 }

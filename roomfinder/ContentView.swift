@@ -3,7 +3,7 @@
 //  roomfinder
 //
 //  Created by Pascal Köchli on 25.01.2024.
-//  The code in this project was inspired by https://github.com/aheze/PathMapper.
+//  This project was inspired by https://github.com/aheze/PathMapper.
 //
 
 import SwiftUI
@@ -18,22 +18,23 @@ struct ContentView: View {
     @State private var endingRoomObject = Room(name: "No room", entrancePoint:  CGPoint(x: 0, y:0), floor:1)
     @State private var shortestPath: [Node] = []
     
+    /// Initialize rooms and hallways
     let hallways = [
         ///Vertical hallways
-        Hallway(start: CGPoint(x:0.17,y:0.595), end: CGPoint(x:0.17, y:0.863), name:"5.1 Links"), //5.1 left
-        Hallway(start: CGPoint(x:0.491,y:0.595), end: CGPoint(x:0.491, y:0.863), name:"5.1 Rechts"), //5.1 right
-        Hallway(start: CGPoint(x:0.33,y:0.595), end: CGPoint(x:0.33, y:0.315), name:"Passarelle"), //Passarelle
-        Hallway(start: CGPoint(x:0.33,y:0.315), end: CGPoint(x:0.33, y:0.145), name:"6.1 links"), //6.1 left
-        Hallway(start: CGPoint(x:0.81,y:0.145), end: CGPoint(x:0.81, y:0.315), name:"6.1 rechts"), //6.1 right
-        Hallway(start: CGPoint(x:0.865,y:0.31), end: CGPoint(x:0.865, y:0.315), name:"6.1 connector rechts"), //6.1 bottom connector
+        Hallway(start: CGPoint(x:0.17,y:0.595), end: CGPoint(x:0.17, y:0.863), name:"5.1 Links"),
+        Hallway(start: CGPoint(x:0.491,y:0.595), end: CGPoint(x:0.491, y:0.863), name:"5.1 Rechts"),
+        Hallway(start: CGPoint(x:0.33,y:0.595), end: CGPoint(x:0.33, y:0.315), name:"Passarelle"),
+        Hallway(start: CGPoint(x:0.33,y:0.315), end: CGPoint(x:0.33, y:0.145), name:"6.1 links"),
+        Hallway(start: CGPoint(x:0.81,y:0.145), end: CGPoint(x:0.81, y:0.315), name:"6.1 rechts"),
+        Hallway(start: CGPoint(x:0.865,y:0.31), end: CGPoint(x:0.865, y:0.315), name:"6.1 connector rechts"),
         
         ///Horizontal hallways
-        Hallway(start: CGPoint(x:0.17, y:0.863), end: CGPoint(x:0.491, y:0.863), name:"5.1 unten"), //5.1 bottom
-        Hallway(start: CGPoint(x:0.17, y:0.595), end: CGPoint(x:0.33, y:0.595), name:"5.1 oben links"), //5.1 top left
-        Hallway(start: CGPoint(x:0.33, y:0.595), end: CGPoint(x:0.491, y:0.595), name:"5.1 oben rechts"), //5.1 top right
-        Hallway(start: CGPoint(x:0.33, y:0.315), end: CGPoint(x:0.81, y:0.315), name:"6.1 unten"), //6.1 bottom
-        Hallway(start: CGPoint(x:0.33, y:0.145), end: CGPoint(x:0.81, y:0.145), name:"6.1 oben"), //6.1 top
-        Hallway(start: CGPoint(x:0.81, y:0.315), end: CGPoint(x:0.865, y:0.315), name:"6.1 connector unten") //6.1 bottom connector
+        Hallway(start: CGPoint(x:0.17, y:0.863), end: CGPoint(x:0.491, y:0.863), name:"5.1 unten"),
+        Hallway(start: CGPoint(x:0.17, y:0.595), end: CGPoint(x:0.33, y:0.595), name:"5.1 oben links"),
+        Hallway(start: CGPoint(x:0.33, y:0.595), end: CGPoint(x:0.491, y:0.595), name:"5.1 oben rechts"),
+        Hallway(start: CGPoint(x:0.33, y:0.315), end: CGPoint(x:0.81, y:0.315), name:"6.1 unten"),
+        Hallway(start: CGPoint(x:0.33, y:0.145), end: CGPoint(x:0.81, y:0.145), name:"6.1 oben"),
+        Hallway(start: CGPoint(x:0.81, y:0.315), end: CGPoint(x:0.865, y:0.315), name:"6.1 connector unten")
     ]
     
     let rooms = [
@@ -41,7 +42,7 @@ struct ContentView: View {
         Room(name: "5.1H14", entrancePoint:  CGPoint(x: 0.17, y:0.745), floor:1),
         Room(name: "5.1H16", entrancePoint:  CGPoint(x: 0.17, y:0.695), floor:1),
         Room(name: "5.1H19", entrancePoint:  CGPoint(x: 0.17, y:0.645), floor:1),
-        Room(name: "5.1D02", entrancePoint:  CGPoint(x: 0.171, y:0.595), floor:1), //To make sure 5.1 oben links start works correctly
+        Room(name: "5.1D02", entrancePoint:  CGPoint(x: 0.171, y:0.595), floor:1), //Small offset to make sure 5.1 oben links start works correctly
         Room(name: "5.1H03", entrancePoint:  CGPoint(x: 0.285, y:0.863), floor:1),
         Room(name: "5.1H01", entrancePoint:  CGPoint(x: 0.375, y:0.863), floor:1),
         Room(name: "5.1A17", entrancePoint:  CGPoint(x: 0.491, y:0.795), floor:1),
@@ -56,6 +57,7 @@ struct ContentView: View {
         Room(name: "6.1A06", entrancePoint:  CGPoint(x: 0.865, y:0.31), floor:1)
     ]
     
+    /// Initialize colors and keys for localized strings
     var startingColor = Color.orange
     var endingColor = Color.red
     var routeColor = Color.blue
@@ -104,10 +106,10 @@ struct ContentView: View {
                             .stroke(routeColor, style: StrokeStyle(lineWidth: 4, lineCap: .round))
                             .shadow(color: Color.black.opacity(0.3), radius: 3)
                             if startingRoomObject.name != noRoomString {
-                                PulsatingCircle(positionPoint: ScaleCGPointWithGeometry(in: geometry, originalPoint: startingRoomObject.entrancePoint), backgroundColor: startingColor, size: 15, iconName: startingIcon)
+                                PulsatingCircle(positionPoint: ScaleCGPointWithGeometry(in: geometry, originalPoint: startingRoomObject.entrancePoint), backgroundColor: startingColor, size: 18, iconName: startingIcon)
                             }
                             if endingRoomObject.name != noRoomString{
-                                PulsatingCircle(positionPoint: ScaleCGPointWithGeometry(in: geometry, originalPoint: endingRoomObject.entrancePoint), backgroundColor: endingColor, size: 15, iconName: endingIcon)
+                                PulsatingCircle(positionPoint: ScaleCGPointWithGeometry(in: geometry, originalPoint: endingRoomObject.entrancePoint), backgroundColor: endingColor, size: 18, iconName: endingIcon)
                             }
                         },
                         alignment: .topLeading
