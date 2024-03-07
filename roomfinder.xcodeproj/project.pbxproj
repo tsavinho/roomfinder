@@ -117,18 +117,18 @@
 		D2A742FE2B6256B000D6F96F /* roomfinder */ = {
 			isa = PBXGroup;
 			children = (
+				D2A743032B6256B300D6F96F /* Assets.xcassets */,
+				D2A743012B6256B000D6F96F /* ContentView.swift */,
+				D22E4B652B6BE1DA00262FCB /* Entities */,
+				D2EDDFEC2B7E4A8C00C7DBD4 /* Extensions */,
+				D29493DA2B878089006B123F /* Fonts */,
+				D22E4B662B6BE24500262FCB /* HelperFunctions */,
+				D29493DD2B87813C006B123F /* Info.plist */,
 				D29493E12B879833006B123F /* Launch Screen.storyboard */,
 				D29493E02B878E46006B123F /* Localization */,
-				D29493DD2B87813C006B123F /* Info.plist */,
-				D29493DA2B878089006B123F /* Fonts */,
-				D2EDDFF32B7E636400C7DBD4 /* Views */,
-				D2EDDFEC2B7E4A8C00C7DBD4 /* Extensions */,
-				D22E4B662B6BE24500262FCB /* HelperFunctions */,
-				D22E4B652B6BE1DA00262FCB /* Entities */,
-				D2A742FF2B6256B000D6F96F /* roomfinderApp.swift */,
-				D2A743012B6256B000D6F96F /* ContentView.swift */,
-				D2A743032B6256B300D6F96F /* Assets.xcassets */,
 				D2A743052B6256B300D6F96F /* Preview Content */,
+				D2A742FF2B6256B000D6F96F /* roomfinderApp.swift */,
+				D2EDDFF32B7E636400C7DBD4 /* Views */,
 			);
 			path = roomfinder;
 			sourceTree = "<group>";
